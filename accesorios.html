@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accesorios - Tienda de Moda</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            border: 1px solid black;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: blue;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .producto-lista {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .producto {
+            width: 30%;
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .producto img {
+            width: 100%;
+            height: auto;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Accesorios</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="nuevas_llegadas.html">Nuevas Llegadas</a></li>
+                <li><a href="hombre.html">Hombre</a></li>
+                <li><a href="mujer.html">Mujer</a></li>
+                <li><a href="accesorios.html">Accesorios</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Accesorios</h2>
+        <p>Explora nuestra selección de las mejores prendas para mujer.</p>
+        <div class="producto-lista">
+            <div class="producto">
+                <img src="images/gafas.webp" alt="1">
+                <h3>GAFAS</h3>
+                <p>Gafas de sol.</p>
+                <p><strong>$80.000</strong></p>
+            </div>
+
+            <div class="producto">
+             
+                <img src="images/sombrero.jpg" alt=" 2">
+                <h3>SOMBRERO</h3>
+                <p>Sombrero para playa.</p>
+                <p><strong>$95.000</strong></p>
+            </div>
+
+            <div class="producto">
+               
+                <img src="images/bolso.jpg" alt=" 3">
+                <h3>BOLSO</h3>
+                <p>Bolso idel para llevar a todas partes.</p>
+                <p><strong>$150.000</strong></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Tienda de Moda. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>

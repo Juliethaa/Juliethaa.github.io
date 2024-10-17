@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Moda</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            border: 1px solid black;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: blue;
+        }
+
+        main {
+            border: 1px solid black;
+            padding: 20px;
+        }
+
+        .productos {
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid black;
+            padding: 20px;
+        }
+
+        .producto {
+            width: 45%;
+            text-align: center;
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        .producto img {
+            width: 100%;
+            height: auto;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Tienda de Moda</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="nuevas_llegadas.html">Nuevas Llegadas</a></li>
+                <li><a href="#">Hombre</a></li>
+                <li><a href="#">Mujer</a></li>
+                <li><a href="#">Accesorios</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Bienvenidos a la Tienda de Moda</h2>
+        <p>Descubre las últimas tendencias en ropa y accesorios.</p>
+
+        <div class="productos">
+            <div class="producto">
+                <!-- Aquí puedes pegar la imagen de ropa para hombre -->
+                <img src="images/hom.jpg" alt="Imagen de ropa hombre" width="5" height="5">
+                <p>Moda Hombre</p>
+            </div>
+            <div class="producto">
+                <!-- Aquí puedes pegar la imagen de ropa para mujer -->
+                <img src="images/mujer.jpg" alt="Imagen de ropa mujer" width="4" height="4">
+                <p>Moda Mujer</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Tienda de Moda. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
