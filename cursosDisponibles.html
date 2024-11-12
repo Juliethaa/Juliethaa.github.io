@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos Disponbles - Accede y Desarrolla</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f6d365, #fda085);
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1800px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #8f803c;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .job-list {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .job-card {
+            background-color: #f7f7f7;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: calc(33% - 20px);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .job-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .job-card h3 {
+            font-size: 1.5em;
+            color: #8f803c;
+            margin-bottom: 10px;
+        }
+
+        .job-card p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .job-card img {
+            width: 80px;
+            height: 80px;
+            margin: 10px 0;
+        }
+
+        .navigation-links {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: #dfb14e;
+            transition: color 0.3s;
+        }
+
+        .links a:hover {
+            color: #8f803c;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 900px) {
+            .job-card {
+                width: calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .job-card {
+                width: 100%;
+            }
+        }
+        .navigation-links a {
+    text-decoration: none;  /* Para eliminar el subrayado */
+    color: #dfb14e;         /* Cambia el color por el que desees */
+    font-weight: bold;      /* Opcional, para hacer el enlace en negrita */
+    transition: color 0.3s; /* Añade una transición suave al pasar el cursor */
+}
+
+.navigation-links a:hover {
+    color: #8f803c;         /* Color al pasar el cursor */
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cursos Disponbles</h1>
+        <div class="job-list">
+            <!-- Tarjeta de oferta laboral 1 -->
+            <div class="job-card">
+                <h3>Cargo: XXXXXXXXXXX</h3>
+                <p>Descripción: XXXXXXXXXXX</p>
+                <p>Requisitos: XXXXXXXXXXX</p>
+                <img src="img/cursoss.png" alt="Icono de oferta 1">
+            </div>
+            <!-- Tarjeta de oferta laboral 2 -->
+            <div class="job-card">
+                <h3>Cargo: XXXXXXXXXXX</h3>
+                <p>Descripción: XXXXXXXXXXX</p>
+                <p>Requisitos: XXXXXXXXXXX</p>
+                <img src="img/cursoss.png" alt="Icono de oferta 2">
+            </div>
+            <!-- Tarjeta de oferta laboral 3 -->
+            <div class="job-card">
+                <h3>Cargo:   XXXXXXXXXXX</h3>
+                <p>Descripción: XXXXXXXXXXX</p>
+                <p>Requisitos: XXXXXXXXXXX</p>
+                <img src="img/cursoss.png" alt="Icono de oferta 3">
+            </div>
+        </div>
+
+        <!-- Enlaces de navegación -->
+        <div class="navigation-links">
+            <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Atrás</a>
+            <a href="secciones.html">Pag. Principal <i class="fas fa-home"></i></a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Curso - Accede y Desarrolla</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f6d365, #fda085);
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+
+        .container {
+            width: 800px;
+            background-color: white;
+            border: 2px solid #d3c06d;
+            border-radius: 12px;
+            padding: 50px 60px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Encabezado con el logo y el icono de perfil */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #8f803c;
+        }
+
+        .logo img {
+            width: 75px;
+            height: 75px;
+            margin-right: 10px;
+        }
+
+        .profile-icon {
+            font-size: 1.8em;
+            color: #8f803c;
+            cursor: pointer;
+        }
+
+        /* Título */
+        .title {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #8f803c;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Formulario */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-size: 0.9em;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"] {
+            padding: 10px;
+            border: 1px solid #d3c06d;
+            border-radius: 5px;
+            font-size: 1em;
+            color: #333;
+            background-color: #f8f9fc;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input[type="text"]:focus {
+            border-color: #dfa167;
+            outline: none;
+        }
+
+        /* Enlaces */
+        .links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: #dfb14e;
+            transition: color 0.3s;
+        }
+
+        .links a:hover {
+            color: #8f803c;
+        }
+
+        /* Estilo del botón de perfil */
+        .profile-button {
+            display: flex;
+            align-items: center;
+            color: #8f803c;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .profile-button:hover {
+            color: #dfa167;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Encabezado con logo y perfil a la derecha -->
+        <div class="header">
+            <div class="logo">
+                <img src="img/cursoss.png" alt=" ">
+                <span>Agregar Cursos</span>
+            </div>
+            <button class="profile-button" onclick="goToProfile()">
+                <i class="fas fa-user-circle profile-icon"></i>
+            </button>
+        </div>
+
+       
+
+        <!-- Formulario para agregar empleo -->
+        <form>
+            <div class="form-group">
+                <label for="nombreInstitución">Nombre   Institución:</label>
+                <input type="text" id="nombreInstitución" name="nombreInstitución" placeholder="Ingrese el nombre de la institución">
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre del curso">
+            </div>
+
+            <div class="form-group">
+                <label for="categoria">Categoría:</label>
+                <input type="text" id="categoria" name="categoria" placeholder="Ingrese la categoría del curso">
+            </div>
+
+            <div class="form-group">
+                <label for="cargo">Cargo:</label>
+                <input type="text" id="cargo" name="cargo" placeholder="Ingrese el cargo">
+            </div>
+
+            <div class="form-group">
+                <label for="requisitos">Requisitos:</label>
+                <input type="text" id="requisitos" name="requisitos" placeholder="Ingrese los requisitos">
+            </div>
+        </form>
+
+        <!-- Enlaces para navegación -->
+        <div class="links">
+            <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Atrás</a>
+            <a href="secciones.html">Pag. Principal <i class="fas fa-home"></i></a>
+        </div>
+    </div>
+
+    <script>
+        function goToProfile() {
+            window.location.href = 'perfil.html';
+        }
+    </script>
+</body>
+</html>
+
