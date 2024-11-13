@@ -29,7 +29,7 @@
             background-color: white;
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            padding: 50px;
+            padding: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -42,27 +42,31 @@
             text-align: center;
         }
 
-        .job-list {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
+        .description {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .carousel-container {
             width: 100%;
+            overflow-x: auto;
+            display: flex;
+            gap: 20px;
+            padding-bottom: 20px;
+            scroll-snap-type: x mandatory;
         }
 
         .job-card {
+            flex: 0 0 300px;
             background-color: #f7f7f7;
             border: 2px solid #ddd;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: calc(33% - 20px);
             padding: 20px;
             text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .job-card:hover {
-            transform: translateY(-10px);
+            scroll-snap-align: start;
         }
 
         .job-card h3 {
@@ -90,71 +94,26 @@
             margin-top: 30px;
         }
 
-        .links {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            font-size: 0.9em;
-        }
-
-        .links a {
+        .navigation-links a {
             text-decoration: none;
             color: #dfb14e;
+            font-weight: bold;
             transition: color 0.3s;
         }
 
-        .links a:hover {
+        .navigation-links a:hover {
             color: #8f803c;
         }
-        /* Responsive adjustments */
-        @media (max-width: 900px) {
-            .job-card {
-                width: calc(50% - 20px);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .job-card {
-                width: 100%;
-            }
-        }
-        .navigation-links a {
-    text-decoration: none;  /* Para eliminar el subrayado */
-    color: #dfb14e;         /* Cambia el color por el que desees */
-    font-weight: bold;      /* Opcional, para hacer el enlace en negrita */
-    transition: color 0.3s; /* Añade una transición suave al pasar el cursor */
-}
-
-.navigation-links a:hover {
-    color: #8f803c;         /* Color al pasar el cursor */
-}
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Ofertas Laborales</h1>
-        <div class="job-list">
-            <!-- Tarjeta de oferta laboral 1 -->
-            <div class="job-card">
-                <h3>Cargo: XXXXXXXXXXX</h3>
-                <p>Descripción: XXXXXXXXXXX</p>
-                <p>Requisitos: XXXXXXXXXXX</p>
-                <img src="img/empleos.png" alt="Icono de oferta 1">
-            </div>
-            <!-- Tarjeta de oferta laboral 2 -->
-            <div class="job-card">
-                <h3>Cargo: XXXXXXXXXXX</h3>
-                <p>Descripción: XXXXXXXXXXX</p>
-                <p>Requisitos: XXXXXXXXXXX</p>
-                <img src="img/empleos.png" alt="Icono de oferta 2">
-            </div>
-            <!-- Tarjeta de oferta laboral 3 -->
-            <div class="job-card">
-                <h3>Cargo:   XXXXXXXXXXX</h3>
-                <p>Descripción: XXXXXXXXXXX</p>
-                <p>Requisitos: XXXXXXXXXXX</p>
-                <img src="img/empleos.png" alt="Icono de oferta 3">
-            </div>
+        <p class="description">Estos son los empleos agregados recientemente:</p>
+
+        <!-- Carrusel de ofertas laborales -->
+        <div class="carousel-container" id="jobList">
+            <!-- Las ofertas laborales dinámicas aparecerán aquí -->
         </div>
 
         <!-- Enlaces de navegación -->
@@ -163,5 +122,41 @@
             <a href="secciones.html">Pag. Principal <i class="fas fa-home"></i></a>
         </div>
     </div>
+
+    <script>
+        // Función para obtener el parámetro de búsqueda de la URL
+        function getSearchParam() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get("search") || "";
+        }
+
+        function mostrarEmpleos() {
+            const jobList = document.getElementById("jobList");
+            const empleos = JSON.parse(localStorage.getItem("empleos")) || [];
+            const searchParam = getSearchParam().toLowerCase();
+
+            // Limpiar el contenedor antes de agregar empleos
+            jobList.innerHTML = '';
+
+            // Filtrar empleos según el término de búsqueda y agregarlos al contenedor
+            empleos.forEach((empleo) => {
+                const empleoTexto = `${empleo.cargo} ${empleo.nombreEmpresa} ${empleo.categoria} ${empleo.requisitos}`.toLowerCase();
+                if (searchParam === "" || empleoTexto.includes(searchParam)) {
+                    const jobCard = document.createElement("div");
+                    jobCard.className = "job-card";
+                    jobCard.innerHTML = `
+                        <h3>${empleo.cargo}</h3>
+                        <p><strong>Empresa:</strong> ${empleo.nombreEmpresa}</p>
+                        <p><strong>Categoría:</strong> ${empleo.categoria}</p>
+                        <p><strong>Requisitos:</strong> ${empleo.requisitos}</p>
+                    `;
+                    jobList.appendChild(jobCard);
+                }
+            });
+        }
+
+        // Llamar a la función para mostrar los empleos al cargar la página
+        document.addEventListener("DOMContentLoaded", mostrarEmpleos);
+    </script>
 </body>
 </html>

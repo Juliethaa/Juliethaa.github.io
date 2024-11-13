@@ -40,7 +40,7 @@
             position: relative;
         }
 
-        /* Contenedor para el logo y el botón de perfil en la parte superior derecha */
+       
         .top-right {
             position: absolute;
             top: 30px;
@@ -49,13 +49,12 @@
             align-items: center;
         }
 
-        /* Estilo del logo en la parte superior derecha */
+    
         .top-right img.logo {
             width: 50px;
             margin-right: 10px;
         }
 
-        /* Botón de perfil con ícono */
         .top-right .profile-button {
             padding: 10px;
             background-color: #dfa54e;
@@ -74,14 +73,14 @@
             background-color: #af9755;
         }
 
-        /* Estilo del ícono dentro del botón de perfil */
+       
         .top-right .profile-button svg {
             width: 20px;
             height: 20px;
             fill: white;
         }
 
-        /* Título de la sección de empleos */
+        
         .title {
             display: flex;
             align-items: center;
@@ -96,7 +95,7 @@
             margin-right: 10px;
         }
 
-        /* Estilo del buscador de empleo */
+     
         .search-container {
             margin: 30px 0;
             display: flex;
@@ -173,6 +172,17 @@
         function goToAgregarEmpleo() {
             window.location.href = 'agregarEmpleo.html';
         }
+
+        function goToBuscarEmpleo() {
+            window.location.href = 'buscarEmpleo.html';
+        }
+    </script>
+     <script>
+        function searchJobs() {
+            const searchInput = document.getElementById("search-input").value;
+            // Redirige a ofertas.html con el término de búsqueda como parámetro en la URL
+            window.location.href = `ofertas.html?search=${encodeURIComponent(searchInput)}`;
+        }
     </script>
 </head>
 <body>
@@ -198,7 +208,7 @@
             <!-- Buscador de empleo -->
             <div class="search-container">
                 <input type="text" placeholder="Buscar empleos..." aria-label="Buscar empleos">
-                <button class="button">Buscar</button>
+                <button class="button" onclick="goToBuscarEmpleo()">Buscar</button>
             </div>
 
             <!-- Botones de oferta y agregar empleo -->
@@ -207,9 +217,10 @@
                 <button class="button" onclick="goToAgregarEmpleo()">Agregar Empleo</button>
             </div>
         </div>
-
+          
         <!-- Enlace de regresar en la esquina inferior derecha del contenedor -->
         <a href="secciones.html" class="back-link">Atrás</a>
     </div>
 </body>
 </html>
+>
