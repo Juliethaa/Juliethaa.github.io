@@ -49,6 +49,7 @@
         .button:hover {
             background-color: #af9755;
         }
+
         .links {
             display: flex;
             justify-content: space-between;
@@ -80,7 +81,6 @@
     <div class="links">
         <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Atrás</a>
         <a href="secciones.html">Pag. Principal <i class="fas fa-home"></i></a>
-      
     </div>
     <script>
         // Función para buscar cursos según la entrada del usuario
@@ -102,7 +102,7 @@
             courseList.innerHTML = ''; // Limpia los resultados previos
 
             if (resultados.length > 0) {
-                resultados.forEach(curso => {
+                resultados.forEach((curso, index) => {
                     const courseCard = document.createElement('div');
                     courseCard.className = 'course-card';
                     courseCard.innerHTML = `
@@ -111,11 +111,23 @@
                         <p><strong>Categoría:</strong> ${curso.categoria}</p>
                         <p><strong>Duración:</strong> ${curso.duracion}</p>
                         <p><strong>Descripción:</strong> ${curso.descripcion}</p>
+                        <button class="button delete-button" onclick="eliminarCurso(${index})">Eliminar</button>
                     `;
                     courseList.appendChild(courseCard);
                 });
             } else {
                 courseList.innerHTML = '<p>No se encontraron cursos.</p>';
+            }
+        }
+
+        // Función para eliminar un curso
+        function eliminarCurso(index) {
+            const cursos = JSON.parse(localStorage.getItem('cursos')) || [];
+            if (confirm(`¿Estás seguro de que deseas eliminar el curso "${cursos[index].nombreCurso}"?`)) {
+                cursos.splice(index, 1); // Eliminar curso de la lista
+                localStorage.setItem('cursos', JSON.stringify(cursos)); // Guardar la lista actualizada
+                mostrarResultados(cursos); // Actualizar la vista
+                alert('Curso eliminado correctamente.');
             }
         }
 

@@ -59,7 +59,7 @@
             scroll-snap-type: x mandatory;
         }
 
-        .course-card {
+        .job-card {
             flex: 0 0 300px;
             background-color: #f7f7f7;
             border: 2px solid #ddd;
@@ -70,10 +70,25 @@
             scroll-snap-align: start;
         }
 
-        .course-card h3 {
+        .job-card h3 {
             font-size: 1.5em;
             color: #8f803c;
             margin-bottom: 10px;
+        }
+
+        .button {
+            padding: 10px 15px;
+            font-size: 1em;
+            color: white;
+            background-color: #dfa54e;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #af9755;
         }
 
         .navigation-links {
@@ -93,7 +108,6 @@
         .navigation-links a:hover {
             color: #8f803c;
         }
-        
     </style>
 </head>
 <body>
@@ -108,20 +122,25 @@
     </div>
 
     <script>
+        // Función para mostrar empleos desde localStorage
         function mostrarEmpleos() {
             const jobList = document.getElementById("jobList");
             const empleos = JSON.parse(localStorage.getItem("empleos")) || [];
+
+            // Limpiar el contenedor antes de agregar empleos
             jobList.innerHTML = '';
 
+            // Verificar si hay empleos
             if (empleos.length > 0) {
-                empleos.forEach(empleo => {
+                empleos.forEach((empleo, index) => {
                     const jobCard = document.createElement("div");
-                    jobCard.className = "course-card";
+                    jobCard.className = "job-card";
                     jobCard.innerHTML = `
                         <h3>${empleo.nombreEmpresa}</h3>
                         <p><strong>Categoría:</strong> ${empleo.categoria}</p>
                         <p><strong>Cargo:</strong> ${empleo.cargo}</p>
                         <p><strong>Requisitos:</strong> ${empleo.requisitos}</p>
+                        <button class="button delete-button" onclick="eliminarEmpleo(${index})">Eliminar</button>
                     `;
                     jobList.appendChild(jobCard);
                 });
@@ -130,6 +149,20 @@
             }
         }
 
+        // Función para eliminar un empleo
+        function eliminarEmpleo(index) {
+            const empleos = JSON.parse(localStorage.getItem("empleos")) || [];
+            
+            // Confirmar eliminación
+            if (confirm(`¿Estás seguro de que deseas eliminar el empleo "${empleos[index].cargo}"?`)) {
+                empleos.splice(index, 1); // Eliminar el empleo de la lista
+                localStorage.setItem("empleos", JSON.stringify(empleos)); // Guardar la lista actualizada
+                mostrarEmpleos(); // Actualizar la vista
+                alert('Empleo eliminado correctamente.');
+            }
+        }
+
+        // Ejecutar al cargar el DOM
         document.addEventListener("DOMContentLoaded", mostrarEmpleos);
     </script>
 </body>

@@ -6,18 +6,13 @@
     <title>Buscador de Empleos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Código CSS */
-        .job-card {
-            background-color: #f9f9f9;
-            border-radius: 8px;
+        /* Estilos CSS */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
             padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease;
-        }
-
-        .job-card:hover {
-            transform: scale(1.03);
+            color: #333;
         }
 
         .search-container {
@@ -36,7 +31,7 @@
         }
 
         .button {
-            padding: 10px 10px;
+            padding: 10px 15px;
             font-size: 1.2em;
             color: white;
             background-color: #dfa54e;
@@ -49,6 +44,20 @@
         .button:hover {
             background-color: #af9755;
         }
+
+        .job-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .job-card:hover {
+            transform: scale(1.03);
+        }
+
         .links {
             display: flex;
             justify-content: space-between;
@@ -65,6 +74,10 @@
         .links a:hover {
             color: #8f803c;
         }
+
+        p {
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
@@ -80,27 +93,15 @@
         <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Atrás</a>
         <a href="secciones.html">Pag. Principal <i class="fas fa-home"></i></a>
     </div>
+
     <script>
-        // Función para buscar empleos según la entrada del usuario
-        function buscarEmpleos() {
-            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
-            const empleos = JSON.parse(localStorage.getItem('empleos')) || [];
-            
-            const resultados = empleos.filter(empleo =>
-                empleo.cargo.toLowerCase().includes(searchQuery) ||
-                empleo.categoria.toLowerCase().includes(searchQuery) ||
-                empleo.requisitos.toLowerCase().includes(searchQuery)
-            );
-            mostrarResultados(resultados);
-        }
-
-        // Función para mostrar los empleos en la página
-        function mostrarResultados(resultados) {
+        // Mostrar los empleos en la página
+        function mostrarResultados(empleos) {
             const jobList = document.getElementById('jobList');
-            jobList.innerHTML = ''; // Limpia los resultados previos
+            jobList.innerHTML = ''; // Limpiar resultados previos
 
-            if (resultados.length > 0) {
-                resultados.forEach(empleo => {
+            if (empleos.length > 0) {
+                empleos.forEach((empleo, index) => {
                     const jobCard = document.createElement('div');
                     jobCard.className = 'job-card';
                     jobCard.innerHTML = `
@@ -108,6 +109,7 @@
                         <p><strong>Empresa:</strong> ${empleo.nombreEmpresa || 'N/A'}</p>
                         <p><strong>Categoría:</strong> ${empleo.categoria}</p>
                         <p><strong>Requisitos:</strong> ${empleo.requisitos}</p>
+                        <button class="button" onclick="eliminarEmpleo(${index})">Eliminar</button>
                     `;
                     jobList.appendChild(jobCard);
                 });
@@ -116,10 +118,36 @@
             }
         }
 
-        // Cargar todos los empleos al iniciar la página
+        // Buscar empleos según la entrada del usuario
+        function buscarEmpleos() {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const empleos = JSON.parse(localStorage.getItem('empleos')) || [];
+
+            const resultados = empleos.filter(empleo =>
+                empleo.cargo.toLowerCase().includes(searchQuery) ||
+                empleo.categoria.toLowerCase().includes(searchQuery) ||
+                empleo.requisitos.toLowerCase().includes(searchQuery)
+            );
+
+            mostrarResultados(resultados);
+        }
+
+        // Eliminar empleo por índice
+        function eliminarEmpleo(index) {
+            const empleos = JSON.parse(localStorage.getItem('empleos')) || [];
+
+            if (confirm(`¿Estás seguro de eliminar el empleo "${empleos[index].cargo}"?`)) {
+                empleos.splice(index, 1);
+                localStorage.setItem('empleos', JSON.stringify(empleos));
+                mostrarResultados(empleos); // Actualizar la lista
+                alert('Empleo eliminado correctamente.');
+            }
+        }
+
+        // Mostrar todos los empleos al cargar la página
         document.addEventListener('DOMContentLoaded', () => {
             const empleos = JSON.parse(localStorage.getItem('empleos')) || [];
-            mostrarResultados(empleos); // Muestra todos los empleos inicialmente
+            mostrarResultados(empleos);
         });
     </script>
 </body>

@@ -3,140 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursos Disponibles - Accede y Desarrolla</title>
+    <title>Buscador de Cursos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Estilos generales */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body, html {
-            height: 100%;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #f6d365, #fda085);
-            color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        h1 {
-            font-size: 2.5em;
-            color: #8f803c;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .description {
-            font-size: 1.2em;
-            color: #555;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .carousel-container {
-            width: 100%;
-            overflow-x: auto;
-            display: flex;
-            gap: 20px;
-            padding-bottom: 20px;
-            scroll-snap-type: x mandatory;
-        }
-
+        /* Código CSS */
         .course-card {
-            flex: 0 0 300px;
-            background-color: #f7f7f7;
-            border: 2px solid #ddd;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+            border-radius: 8px;
             padding: 20px;
-            text-align: center;
-            scroll-snap-align: start;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
         }
 
-        .course-card h3 {
-            font-size: 1.5em;
-            color: #8f803c;
-            margin-bottom: 10px;
+        .course-card:hover {
+            transform: scale(1.03);
         }
 
-        .navigation-links {
+        .search-container {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 15px;
+            border: 2px solid #8f803c;
+            border-radius: 5px;
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+
+        .button {
+            padding: 10px 10px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #dfa54e;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #af9755;
+        }
+
+        .links {
             display: flex;
             justify-content: space-between;
-            width: 100%;
-            margin-top: 30px;
+            margin-top: 20px;
+            font-size: 0.9em;
         }
 
-        .navigation-links a {
+        .links a {
             text-decoration: none;
             color: #dfb14e;
-            font-weight: bold;
             transition: color 0.3s;
         }
 
-        .navigation-links a:hover {
+        .links a:hover {
             color: #8f803c;
         }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Cursos Disponibles</h1>
-        <p class="description">Estos son los cursos agregados recientemente:</p>
-        <div class="carousel-container" id="courseList"></div>
-
-        <!-- Enlaces de navegación -->
-        <div class="navigation-links">
-            <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Atrás</a>
-            <a href="secciones.html">Pag. Principal <i class="fas fa-home"></i></a>
-        </div>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Buscar cursos..." aria-label="Buscar cursos">
+        <button class="button" onclick="buscarCursos()">Buscar</button>
     </div>
-
+   
+    <div id="courseList">
+        <!-- Aquí se mostrarán los cursos -->
+    </div>
+    <div class="links">
+        <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Atrás</a>
+        <a href="secciones.html">Pag. Principal <i class="fas fa-home"></i></a>
+    </div>
     <script>
-        // Función para mostrar cursos desde localStorage
-        function mostrarCursos() {
-            const courseList = document.getElementById("courseList");
-            const cursos = JSON.parse(localStorage.getItem("cursos")) || [];
+        // Función para buscar cursos según la entrada del usuario
+        function buscarCursos() {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const cursos = JSON.parse(localStorage.getItem('cursos')) || [];
+            
+            const resultados = cursos.filter(curso =>
+                curso.nombreCurso.toLowerCase().includes(searchQuery) ||
+                curso.categoria.toLowerCase().includes(searchQuery) ||
+                curso.descripcion.toLowerCase().includes(searchQuery)
+            );
+            mostrarResultados(resultados);
+        }
 
-            // Limpiar el contenedor antes de agregar cursos
-            courseList.innerHTML = '';
+        // Función para mostrar los cursos en la página
+        function mostrarResultados(resultados) {
+            const courseList = document.getElementById('courseList');
+            courseList.innerHTML = ''; // Limpia los resultados previos
 
-            cursos.forEach((curso) => {
-                const courseCard = document.createElement("div");
-                courseCard.className = "course-card";
-                courseCard.innerHTML = `
-                    <h3>${curso.nombreCurso}</h3>
-                    <p><strong>Categoría:</strong> ${curso.categoria}</p>
-                    <p><strong>Duración:</strong> ${curso.duracion}</p>
-                    <p><strong>Descripción:</strong> ${curso.descripcion}</p>
-                `;
-                courseList.appendChild(courseCard);
-            });
-
-            // Mostrar mensaje si no hay cursos disponibles
-            if (cursos.length === 0) {
-                courseList.innerHTML = '<p>No hay cursos disponibles en este momento.</p>';
+            if (resultados.length > 0) {
+                resultados.forEach((curso, index) => {
+                    const courseCard = document.createElement('div');
+                    courseCard.className = 'course-card';
+                    courseCard.innerHTML = `
+                        <h3>${curso.nombreCurso}</h3>
+                        <p><strong>Institución:</strong> ${curso.nombreInstitucion || 'N/A'}</p>
+                        <p><strong>Categoría:</strong> ${curso.categoria}</p>
+                        <p><strong>Duración:</strong> ${curso.duracion}</p>
+                        <p><strong>Descripción:</strong> ${curso.descripcion}</p>
+                        <button class="button delete-button" onclick="eliminarCurso(${index})">Eliminar</button>
+                    `;
+                    courseList.appendChild(courseCard);
+                });
+            } else {
+                courseList.innerHTML = '<p>No se encontraron cursos.</p>';
             }
         }
 
-        // Ejecutar al cargar el DOM
-        document.addEventListener("DOMContentLoaded", mostrarCursos);
+        // Función para eliminar un curso
+        function eliminarCurso(index) {
+            const cursos = JSON.parse(localStorage.getItem('cursos')) || [];
+            if (confirm(`¿Estás seguro de que deseas eliminar el curso "${cursos[index].nombreCurso}"?`)) {
+                cursos.splice(index, 1); // Eliminar curso de la lista
+                localStorage.setItem('cursos', JSON.stringify(cursos)); // Guardar la lista actualizada
+                mostrarResultados(cursos); // Actualizar la vista
+                alert('Curso eliminado correctamente.');
+            }
+        }
+
+        // Cargar todos los cursos al iniciar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursos = JSON.parse(localStorage.getItem('cursos')) || [];
+            mostrarResultados(cursos); // Muestra todos los cursos inicialmente
+        });
     </script>
 </body>
 </html>
