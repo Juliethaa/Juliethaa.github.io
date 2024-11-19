@@ -76,21 +76,6 @@
             margin-bottom: 10px;
         }
 
-        .button {
-            padding: 10px 15px;
-            font-size: 1em;
-            color: white;
-            background-color: #dfa54e;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .button:hover {
-            background-color: #af9755;
-        }
-
         .navigation-links {
             display: flex;
             justify-content: space-between;
@@ -108,6 +93,21 @@
         .navigation-links a:hover {
             color: #8f803c;
         }
+
+        .delete-button {
+            margin-top: 10px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .delete-button:hover {
+            background-color: #ccc456de;
+        }
     </style>
 </head>
 <body>
@@ -124,12 +124,12 @@
     </div>
 
     <script>
-        // Función para mostrar cursos desde localStorage
+        // Mostrar cursos almacenados en localStorage
         function mostrarCursos() {
             const courseList = document.getElementById("courseList");
             const cursos = JSON.parse(localStorage.getItem("cursos")) || [];
 
-            // Limpiar el contenedor antes de agregar cursos
+            // Limpiar contenedor
             courseList.innerHTML = '';
 
             cursos.forEach((curso, index) => {
@@ -140,29 +140,28 @@
                     <p><strong>Categoría:</strong> ${curso.categoria}</p>
                     <p><strong>Duración:</strong> ${curso.duracion}</p>
                     <p><strong>Descripción:</strong> ${curso.descripcion}</p>
-                    <button class="button delete-button" onclick="eliminarCurso(${index})">Eliminar</button>
+                    <button class="delete-button" onclick="eliminarCurso(${index})">Eliminar</button>
                 `;
                 courseList.appendChild(courseCard);
             });
 
-            // Mostrar mensaje si no hay cursos disponibles
             if (cursos.length === 0) {
                 courseList.innerHTML = '<p>No hay cursos disponibles en este momento.</p>';
             }
         }
 
-        // Función para eliminar un curso
+        // Eliminar curso por índice
         function eliminarCurso(index) {
             const cursos = JSON.parse(localStorage.getItem("cursos")) || [];
             if (confirm(`¿Estás seguro de que deseas eliminar el curso "${cursos[index].nombreCurso}"?`)) {
-                cursos.splice(index, 1); // Eliminar el curso de la lista
-                localStorage.setItem("cursos", JSON.stringify(cursos)); // Guardar la lista actualizada
-                mostrarCursos(); // Actualizar la vista
+                cursos.splice(index, 1); // Eliminar curso
+                localStorage.setItem('cursos', JSON.stringify(cursos)); // Actualizar almacenamiento
+                mostrarCursos(); // Refrescar vista
                 alert('Curso eliminado correctamente.');
             }
         }
 
-        // Ejecutar al cargar el DOM
+        // Cargar cursos al inicio
         document.addEventListener("DOMContentLoaded", mostrarCursos);
     </script>
 </body>
