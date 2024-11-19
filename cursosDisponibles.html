@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursos Disponbles - Accede y Desarrolla</title>
+    <title>Cursos Disponibles - Accede y Desarrolla</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Estilos generales */
         * {
             margin: 0;
             padding: 0;
@@ -25,11 +26,11 @@
 
         .container {
             width: 90%;
-            max-width: 1800px;
+            max-width: 1200px;
             background-color: white;
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            padding: 50px;
+            padding: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -42,45 +43,37 @@
             text-align: center;
         }
 
-        .job-list {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-            width: 100%;
+        .description {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 30px;
+            text-align: center;
         }
 
-        .job-card {
+        .carousel-container {
+            width: 100%;
+            overflow-x: auto;
+            display: flex;
+            gap: 20px;
+            padding-bottom: 20px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .course-card {
+            flex: 0 0 300px;
             background-color: #f7f7f7;
             border: 2px solid #ddd;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: calc(33% - 20px);
             padding: 20px;
             text-align: center;
-            transition: transform 0.3s ease;
+            scroll-snap-align: start;
         }
 
-        .job-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .job-card h3 {
+        .course-card h3 {
             font-size: 1.5em;
             color: #8f803c;
             margin-bottom: 10px;
-        }
-
-        .job-card p {
-            font-size: 1.1em;
-            color: #555;
-            margin-bottom: 15px;
-        }
-
-        .job-card img {
-            width: 80px;
-            height: 80px;
-            margin: 10px 0;
         }
 
         .navigation-links {
@@ -90,72 +83,23 @@
             margin-top: 30px;
         }
 
-        .links {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            font-size: 0.9em;
-        }
-
-        .links a {
+        .navigation-links a {
             text-decoration: none;
             color: #dfb14e;
+            font-weight: bold;
             transition: color 0.3s;
         }
 
-        .links a:hover {
+        .navigation-links a:hover {
             color: #8f803c;
         }
-        /* Responsive adjustments */
-        @media (max-width: 900px) {
-            .job-card {
-                width: calc(50% - 20px);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .job-card {
-                width: 100%;
-            }
-        }
-        .navigation-links a {
-    text-decoration: none;  /* Para eliminar el subrayado */
-    color: #dfb14e;         /* Cambia el color por el que desees */
-    font-weight: bold;      /* Opcional, para hacer el enlace en negrita */
-    transition: color 0.3s; /* Añade una transición suave al pasar el cursor */
-}
-
-.navigation-links a:hover {
-    color: #8f803c;         /* Color al pasar el cursor */
-}
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Cursos Disponbles</h1>
-        <div class="job-list">
-            <!-- Tarjeta de oferta laboral 1 -->
-            <div class="job-card">
-                <h3>Cargo: XXXXXXXXXXX</h3>
-                <p>Descripción: XXXXXXXXXXX</p>
-                <p>Requisitos: XXXXXXXXXXX</p>
-                <img src="img/cursoss.png" alt="Icono de oferta 1">
-            </div>
-            <!-- Tarjeta de oferta laboral 2 -->
-            <div class="job-card">
-                <h3>Cargo: XXXXXXXXXXX</h3>
-                <p>Descripción: XXXXXXXXXXX</p>
-                <p>Requisitos: XXXXXXXXXXX</p>
-                <img src="img/cursoss.png" alt="Icono de oferta 2">
-            </div>
-            <!-- Tarjeta de oferta laboral 3 -->
-            <div class="job-card">
-                <h3>Cargo:   XXXXXXXXXXX</h3>
-                <p>Descripción: XXXXXXXXXXX</p>
-                <p>Requisitos: XXXXXXXXXXX</p>
-                <img src="img/cursoss.png" alt="Icono de oferta 3">
-            </div>
-        </div>
+        <h1>Cursos Disponibles</h1>
+        <p class="description">Estos son los cursos agregados recientemente:</p>
+        <div class="carousel-container" id="courseList"></div>
 
         <!-- Enlaces de navegación -->
         <div class="navigation-links">
@@ -163,5 +107,36 @@
             <a href="secciones.html">Pag. Principal <i class="fas fa-home"></i></a>
         </div>
     </div>
+
+    <script>
+        // Función para mostrar cursos desde localStorage
+        function mostrarCursos() {
+            const courseList = document.getElementById("courseList");
+            const cursos = JSON.parse(localStorage.getItem("cursos")) || [];
+
+            // Limpiar el contenedor antes de agregar cursos
+            courseList.innerHTML = '';
+
+            cursos.forEach((curso) => {
+                const courseCard = document.createElement("div");
+                courseCard.className = "course-card";
+                courseCard.innerHTML = `
+                    <h3>${curso.nombreCurso}</h3>
+                    <p><strong>Categoría:</strong> ${curso.categoria}</p>
+                    <p><strong>Duración:</strong> ${curso.duracion}</p>
+                    <p><strong>Descripción:</strong> ${curso.descripcion}</p>
+                `;
+                courseList.appendChild(courseCard);
+            });
+
+            // Mostrar mensaje si no hay cursos disponibles
+            if (cursos.length === 0) {
+                courseList.innerHTML = '<p>No hay cursos disponibles en este momento.</p>';
+            }
+        }
+
+        // Ejecutar al cargar el DOM
+        document.addEventListener("DOMContentLoaded", mostrarCursos);
+    </script>
 </body>
 </html>

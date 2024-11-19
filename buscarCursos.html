@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador de Empleos</title>
+    <title>Buscador de Cursos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Código CSS */
-        .job-card {
+        .course-card {
             background-color: #f9f9f9;
             border-radius: 8px;
             padding: 20px;
@@ -16,7 +16,7 @@
             transition: transform 0.2s ease;
         }
 
-        .job-card:hover {
+        .course-card:hover {
             transform: scale(1.03);
         }
 
@@ -65,61 +65,64 @@
         .links a:hover {
             color: #8f803c;
         }
+
     </style>
 </head>
 <body>
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Buscar empleos..." aria-label="Buscar empleos">
-        <button class="button" onclick="buscarEmpleos()">Buscar</button>
+        <input type="text" id="searchInput" placeholder="Buscar cursos..." aria-label="Buscar cursos">
+        <button class="button" onclick="buscarCursos()">Buscar</button>
     </div>
    
-    <div id="jobList">
-        <!-- Aquí se mostrarán los empleos -->
+    <div id="courseList">
+        <!-- Aquí se mostrarán los cursos -->
     </div>
     <div class="links">
         <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Atrás</a>
         <a href="secciones.html">Pag. Principal <i class="fas fa-home"></i></a>
+      
     </div>
     <script>
-        // Función para buscar empleos según la entrada del usuario
-        function buscarEmpleos() {
+        // Función para buscar cursos según la entrada del usuario
+        function buscarCursos() {
             const searchQuery = document.getElementById('searchInput').value.toLowerCase();
-            const empleos = JSON.parse(localStorage.getItem('empleos')) || [];
+            const cursos = JSON.parse(localStorage.getItem('cursos')) || [];
             
-            const resultados = empleos.filter(empleo =>
-                empleo.cargo.toLowerCase().includes(searchQuery) ||
-                empleo.categoria.toLowerCase().includes(searchQuery) ||
-                empleo.requisitos.toLowerCase().includes(searchQuery)
+            const resultados = cursos.filter(curso =>
+                curso.nombreCurso.toLowerCase().includes(searchQuery) ||
+                curso.categoria.toLowerCase().includes(searchQuery) ||
+                curso.descripcion.toLowerCase().includes(searchQuery)
             );
             mostrarResultados(resultados);
         }
 
-        // Función para mostrar los empleos en la página
+        // Función para mostrar los cursos en la página
         function mostrarResultados(resultados) {
-            const jobList = document.getElementById('jobList');
-            jobList.innerHTML = ''; // Limpia los resultados previos
+            const courseList = document.getElementById('courseList');
+            courseList.innerHTML = ''; // Limpia los resultados previos
 
             if (resultados.length > 0) {
-                resultados.forEach(empleo => {
-                    const jobCard = document.createElement('div');
-                    jobCard.className = 'job-card';
-                    jobCard.innerHTML = `
-                        <h3>${empleo.cargo}</h3>
-                        <p><strong>Empresa:</strong> ${empleo.nombreEmpresa || 'N/A'}</p>
-                        <p><strong>Categoría:</strong> ${empleo.categoria}</p>
-                        <p><strong>Requisitos:</strong> ${empleo.requisitos}</p>
+                resultados.forEach(curso => {
+                    const courseCard = document.createElement('div');
+                    courseCard.className = 'course-card';
+                    courseCard.innerHTML = `
+                        <h3>${curso.nombreCurso}</h3>
+                        <p><strong>Institución:</strong> ${curso.nombreInstitucion || 'N/A'}</p>
+                        <p><strong>Categoría:</strong> ${curso.categoria}</p>
+                        <p><strong>Duración:</strong> ${curso.duracion}</p>
+                        <p><strong>Descripción:</strong> ${curso.descripcion}</p>
                     `;
-                    jobList.appendChild(jobCard);
+                    courseList.appendChild(courseCard);
                 });
             } else {
-                jobList.innerHTML = '<p>No se encontraron empleos.</p>';
+                courseList.innerHTML = '<p>No se encontraron cursos.</p>';
             }
         }
 
-        // Cargar todos los empleos al iniciar la página
+        // Cargar todos los cursos al iniciar la página
         document.addEventListener('DOMContentLoaded', () => {
-            const empleos = JSON.parse(localStorage.getItem('empleos')) || [];
-            mostrarResultados(empleos); // Muestra todos los empleos inicialmente
+            const cursos = JSON.parse(localStorage.getItem('cursos')) || [];
+            mostrarResultados(cursos); // Muestra todos los cursos inicialmente
         });
     </script>
 </body>

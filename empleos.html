@@ -172,6 +172,9 @@
         function goToAgregarEmpleo() {
             window.location.href = 'agregarEmpleo.html';
         }
+        function goToOfertasEmpleo() {
+            window.location.href = 'ofertas.html';
+        }
 
         function goToBuscarEmpleo() {
             window.location.href = 'buscarEmpleo.html';
@@ -205,16 +208,11 @@
                 <span>Empleos</span>
             </div>
 
-            <!-- Buscador de empleo -->
-            <div class="search-container">
-                <input type="text" placeholder="Buscar empleos..." aria-label="Buscar empleos">
-                <button class="button" onclick="goToBuscarEmpleo()">Buscar</button>
-            </div>
-
             <!-- Botones de oferta y agregar empleo -->
             <div class="button-container">
-                <a href="ofertas.html" class="button">Ofertas Disponibles</a>
                 <button class="button" onclick="goToAgregarEmpleo()">Agregar Empleo</button>
+                <button class="button" onclick="goToOfertasEmpleo()">Ofertas Disponibles</button>
+                <button class="button" onclick="goToBuscarEmpleo()">Buscar Empleo</button>
             </div>
         </div>
           

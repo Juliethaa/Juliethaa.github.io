@@ -191,6 +191,7 @@
         <div class="links">
             <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Atrás</a>
             <a href="secciones.html">Pag. Principal <i class="fas fa-home"></i></a>
+          
         </div>
     </div>
 
@@ -200,39 +201,35 @@
         }
 
         function addJob() {
-            // Obtener los valores de los campos de entrada
             const nombreEmpresa = document.getElementById("nombreEmpresa").value;
             const categoria = document.getElementById("categoria").value;
             const cargo = document.getElementById("cargo").value;
             const requisitos = document.getElementById("requisitos").value;
 
-            // Verificar que todos los campos estén completos
             if (!nombreEmpresa || !categoria || !cargo || !requisitos) {
                 alert("Por favor, complete todos los campos");
                 return;
             }
 
-            // Crear un objeto con los datos del nuevo empleo
-            const nuevoEmpleo = {
-                nombreEmpresa: nombreEmpresa,
-                categoria: categoria,
-                cargo: cargo,
-                requisitos: requisitos
-            };
-
-            // Obtener empleos actuales de localStorage o inicializar como un array vacío
-            let empleos = JSON.parse(localStorage.getItem("empleos")) || [];
-
-            // Agregar el nuevo empleo al array
+            const nuevoEmpleo = { nombreEmpresa, categoria, cargo, requisitos };
+            const empleos = JSON.parse(localStorage.getItem("empleos")) || [];
             empleos.push(nuevoEmpleo);
-
-            // Guardar el array actualizado en localStorage
             localStorage.setItem("empleos", JSON.stringify(empleos));
-
-            // Restablecer el formulario
             document.getElementById("employmentForm").reset();
             alert("Empleo agregado exitosamente");
         }
+
+        // Agregar empleos de ejemplo al cargar por primera vez
+        document.addEventListener("DOMContentLoaded", () => {
+            if (!localStorage.getItem("empleos")) {
+                const empleosIniciales = [
+                    { nombreEmpresa: "Tech Solutions", categoria: "Tecnología", cargo: "Desarrollador Web", requisitos: "Experiencia en JavaScript" },
+                    { nombreEmpresa: "Market Corp", categoria: "Marketing", cargo: "Community Manager", requisitos: "Conocimiento en redes sociales" },
+                    { nombreEmpresa: "Health Plus", categoria: "Salud", cargo: "Enfermero", requisitos: "Licencia vigente" }
+                ];
+                localStorage.setItem("empleos", JSON.stringify(empleosIniciales));
+            }
+        });
     </script>
 </body>
 </html>

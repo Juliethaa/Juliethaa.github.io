@@ -172,6 +172,13 @@
         function goToAgregarCursos() {
             window.location.href = 'agregarCurso.html';
         }
+
+        function goToCursosDisponibles() {
+            window.location.href = 'cursosDisponibles.html';
+        }
+        function goToBuscarCursos() {
+            window.location.href = 'buscarCursos.html';
+        }
     </script>
 </head>
 <body>
@@ -194,14 +201,14 @@
             </div>
 
             <!-- Buscador de empleo -->
-            <div class="search-container">
-                <input type="text" placeholder="Buscar cursos..." aria-label="Buscar cursos">
-                <button class="button">Buscar</button>
-            </div>
+           
 
             <div class="button-container">
-                <a href="cursosDisponibles.html" class="button">Cursos Disponibles</a>
+               
                 <button class="button" onclick="goToAgregarCursos()">Agregar Curso</button>
+                <button class="button" onclick="goToCursosDisponibles()">Cursos Disponibles</button>
+                <button class="button" onclick="goToBuscarCursos()">Buscar Cursos</button>
+              
             </div>
             
         </div>

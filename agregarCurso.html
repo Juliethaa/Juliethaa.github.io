@@ -23,7 +23,6 @@
             padding: 20px;
         }
 
-
         .container {
             width: 800px;
             background-color: white;
@@ -33,7 +32,6 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
 
-        /* Encabezado con el logo y el icono de perfil */
         .header {
             display: flex;
             justify-content: space-between;
@@ -61,7 +59,6 @@
             cursor: pointer;
         }
 
-        /* Título */
         .title {
             font-size: 1.6em;
             font-weight: bold;
@@ -70,7 +67,6 @@
             margin-bottom: 20px;
         }
 
-        /* Formulario */
         .form-group {
             display: flex;
             flex-direction: column;
@@ -98,7 +94,27 @@
             outline: none;
         }
 
-        /* Enlaces */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .add-button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #8f803c;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-button:hover {
+            background-color: #dfa167;
+        }
+
         .links {
             display: flex;
             justify-content: space-between;
@@ -116,7 +132,6 @@
             color: #8f803c;
         }
 
-        /* Estilo del botón de perfil */
         .profile-button {
             display: flex;
             align-items: center;
@@ -130,49 +145,50 @@
         .profile-button:hover {
             color: #dfa167;
         }
-
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Encabezado con logo y perfil a la derecha -->
         <div class="header">
             <div class="logo">
-                <img src="img/cursoss.png" alt=" ">
-                <span>Agregar Cursos</span>
+                <img src="img/cursoss.png" alt="Logo Cursos">
+                <span>Agregar Curso</span>
             </div>
             <button class="profile-button" onclick="goToProfile()">
                 <i class="fas fa-user-circle profile-icon"></i>
             </button>
         </div>
 
-       
-
-        <!-- Formulario para agregar empleo -->
-        <form>
+        <!-- Formulario para agregar curso -->
+        <form id="courseForm">
             <div class="form-group">
-                <label for="nombreInstitución">Nombre   Institución:</label>
-                <input type="text" id="nombreInstitución" name="nombreInstitución" placeholder="Ingrese el nombre de la institución">
+                <label for="nombreInstitucion">Nombre de la Institución:</label>
+                <input type="text" id="nombreInstitucion" name="nombreInstitucion" placeholder="Ingrese el nombre de la Institución" required>
             </div>
 
             <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre del curso">
+                <label for="nombreCurso">Nombre del Curso:</label>
+                <input type="text" id="nombreCurso" name="nombreCurso" placeholder="Ingrese el nombre del curso" required>
             </div>
 
             <div class="form-group">
                 <label for="categoria">Categoría:</label>
-                <input type="text" id="categoria" name="categoria" placeholder="Ingrese la categoría del curso">
+                <input type="text" id="categoria" name="categoria" placeholder="Ingrese la categoría del curso" required>
             </div>
 
             <div class="form-group">
-                <label for="cargo">Cargo:</label>
-                <input type="text" id="cargo" name="cargo" placeholder="Ingrese el cargo">
+                <label for="duracion">Duración:</label>
+                <input type="text" id="duracion" name="duracion" placeholder="Ingrese la duración del curso" required>
             </div>
 
             <div class="form-group">
-                <label for="requisitos">Requisitos:</label>
-                <input type="text" id="requisitos" name="requisitos" placeholder="Ingrese los requisitos">
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" name="descripcion" placeholder="Ingrese una breve descripción" required>
+            </div>
+
+            <!-- Botón de agregar curso -->
+            <div class="button-container">
+                <button type="button" class="add-button" onclick="addCourse()">Agregar Curso</button>
             </div>
         </form>
 
@@ -187,7 +203,37 @@
         function goToProfile() {
             window.location.href = 'perfil.html';
         }
+
+        function addCourse() {
+            const nombreInstitucion = document.getElementById("nombreInstitucion").value;
+            const nombreCurso = document.getElementById("nombreCurso").value;
+            const categoria = document.getElementById("categoria").value;
+            const duracion = document.getElementById("duracion").value;
+            const descripcion = document.getElementById("descripcion").value;
+
+            if (!nombreInstitucion || !nombreCurso || !categoria || !duracion || !descripcion) {
+                alert("Por favor, complete todos los campos");
+                return;
+            }
+
+            const nuevoCurso = {
+                nombreInstitucion,
+                nombreCurso,
+                categoria,
+                duracion,
+                descripcion,
+            };
+           
+
+// Verifica que las ofertas estén guardadas correctamente
+console.log(localStorage.getItem("ofertas"));
+            let cursos = JSON.parse(localStorage.getItem("cursos")) || [];
+            cursos.push(nuevoCurso);
+            localStorage.setItem("cursos", JSON.stringify(cursos));
+
+            document.getElementById("courseForm").reset();
+            alert("Curso agregado exitosamente");
+        }
     </script>
 </body>
 </html>
-

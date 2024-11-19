@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ofertas Laborales - Accede y Desarrolla</title>
+    <title>Ofertas Disponibles - Accede y Desarrolla</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Estilos generales */
         * {
             margin: 0;
             padding: 0;
@@ -25,7 +26,7 @@
 
         .container {
             width: 90%;
-            max-width: 1800px;
+            max-width: 1200px;
             background-color: white;
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -58,7 +59,7 @@
             scroll-snap-type: x mandatory;
         }
 
-        .job-card {
+        .course-card {
             flex: 0 0 300px;
             background-color: #f7f7f7;
             border: 2px solid #ddd;
@@ -69,22 +70,10 @@
             scroll-snap-align: start;
         }
 
-        .job-card h3 {
+        .course-card h3 {
             font-size: 1.5em;
             color: #8f803c;
             margin-bottom: 10px;
-        }
-
-        .job-card p {
-            font-size: 1.1em;
-            color: #555;
-            margin-bottom: 15px;
-        }
-
-        .job-card img {
-            width: 80px;
-            height: 80px;
-            margin: 10px 0;
         }
 
         .navigation-links {
@@ -104,19 +93,14 @@
         .navigation-links a:hover {
             color: #8f803c;
         }
+        
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Ofertas Laborales</h1>
-        <p class="description">Estos son los empleos agregados recientemente:</p>
-
-        <!-- Carrusel de ofertas laborales -->
-        <div class="carousel-container" id="jobList">
-            <!-- Las ofertas laborales dinámicas aparecerán aquí -->
-        </div>
-
-        <!-- Enlaces de navegación -->
+        <h1>Ofertas Disponibles</h1>
+        <p class="description">Estos son los empleos disponibles:</p>
+        <div class="carousel-container" id="jobList"></div>
         <div class="navigation-links">
             <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Atrás</a>
             <a href="secciones.html">Pag. Principal <i class="fas fa-home"></i></a>
@@ -124,38 +108,28 @@
     </div>
 
     <script>
-        // Función para obtener el parámetro de búsqueda de la URL
-        function getSearchParam() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get("search") || "";
-        }
-
         function mostrarEmpleos() {
             const jobList = document.getElementById("jobList");
             const empleos = JSON.parse(localStorage.getItem("empleos")) || [];
-            const searchParam = getSearchParam().toLowerCase();
-
-            // Limpiar el contenedor antes de agregar empleos
             jobList.innerHTML = '';
 
-            // Filtrar empleos según el término de búsqueda y agregarlos al contenedor
-            empleos.forEach((empleo) => {
-                const empleoTexto = `${empleo.cargo} ${empleo.nombreEmpresa} ${empleo.categoria} ${empleo.requisitos}`.toLowerCase();
-                if (searchParam === "" || empleoTexto.includes(searchParam)) {
+            if (empleos.length > 0) {
+                empleos.forEach(empleo => {
                     const jobCard = document.createElement("div");
-                    jobCard.className = "job-card";
+                    jobCard.className = "course-card";
                     jobCard.innerHTML = `
-                        <h3>${empleo.cargo}</h3>
-                        <p><strong>Empresa:</strong> ${empleo.nombreEmpresa}</p>
+                        <h3>${empleo.nombreEmpresa}</h3>
                         <p><strong>Categoría:</strong> ${empleo.categoria}</p>
+                        <p><strong>Cargo:</strong> ${empleo.cargo}</p>
                         <p><strong>Requisitos:</strong> ${empleo.requisitos}</p>
                     `;
                     jobList.appendChild(jobCard);
-                }
-            });
+                });
+            } else {
+                jobList.innerHTML = '<p>No hay empleos disponibles.</p>';
+            }
         }
 
-        // Llamar a la función para mostrar los empleos al cargar la página
         document.addEventListener("DOMContentLoaded", mostrarEmpleos);
     </script>
 </body>
