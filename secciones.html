@@ -24,15 +24,18 @@
 
         .container {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             width: 100%;
             height: 100vh;
-            max-width: 1200px;
+            max-width: 600px;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            position: relative; 
+            position: relative;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
         .profile-button {
@@ -58,16 +61,13 @@
             background-color: #e0a449;
         }
 
-        /* Estilo para el icono dentro del botón */
         .profile-button svg {
             width: 20px;
             height: 20px;
             fill: white;
         }
 
-        /* Estilo para cada sección (Empleos y Cursos) */
         .section {
-            flex: 1;
             padding: 30px;
             display: flex;
             flex-direction: column;
@@ -95,7 +95,6 @@
             margin-bottom: 20px;
         }
 
-        /* Botones */
         .section button {
             padding: 10px 20px;
             font-size: 1em;
@@ -110,33 +109,15 @@
         .section button:hover {
             background-color: #af9755;
         }
-
-        /* Bordes para dividir las secciones */
-        .divider {
-            width: 2px;
-            background-color: #e0e0e0;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Botón de perfil con ícono SVG -->
         <button class="profile-button" onclick="window.location.href='perfil.html'">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 2.01 0 5.97 1.09 6 3.08C16.71 17.72 14.5 19 12 19z"/>
             </svg>
         </button>
-
-        <!-- Sección de Empleos -->
-        <div class="section">
-            <img src="img/empleos.png" alt="Empleos">
-            <h2>Empleos</h2>
-            <p>Explora oportunidades de empleo y encuentra el trabajo ideal para tu perfil y experiencia.</p>
-            <button onclick="window.location.href='empleos.html'">Ver Empleos</button>
-        </div>
-
-        <!-- Divisor entre Empleos y Cursos -->
-        <div class="divider"></div>
 
         <!-- Sección de Cursos -->
         <div class="section">
